@@ -9,6 +9,7 @@
     margin: 0 auto;
     width: 75%;
     min-width: 980px;
+    max-width: 1200px;
     .header-left{
       color: #1e90ff;
       font-size: 24px;
@@ -22,7 +23,7 @@
       }
     }
     .hearder-icon{
-      margin-right: 40px;
+      margin-left: 40px;
       .icon-text{
         vertical-align: -0.5px;
       }

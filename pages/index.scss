@@ -1,3 +1,19 @@
 .home{
   background-color: green;
 }
+.blog-container{
+  display: flex;
+  max-width: 1200px;
+  min-width: 980px;
+  margin: 0 auto;
+  min-height: calc(100% - 52px);
+  .blog-left{
+    flex: 3;
+    margin-right: 10px;
+    background: yellow;
+  }
+  .blog-right{
+    flex: 1;
+    background: green;
+  }
+}
