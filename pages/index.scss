@@ -5,12 +5,75 @@
   display: flex;
   max-width: 1200px;
   min-width: 980px;
-  margin: 0 auto;
-  min-height: calc(100% - 52px);
+  margin: 10px auto;
+  min-height: calc(100% - 72px);
   .blog-left{
     flex: 3;
     margin-right: 10px;
-    background: yellow;
+    padding: 6px;
+    border-radius: 6px;
+    background: #fff;
+    .blog-title{
+      position: relative;
+      padding: 12px 20px;
+      font-size: 18px;
+      &:after{
+        display: inline-block;
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        content: '';
+        height: 1px;
+        width: 100%;
+        background: #e8e8e8;
+      }
+    }
+    .latestLog-list{
+      .latestLog-list-item{
+        padding: 32px 8px 8px;
+        position: relative;
+        &:after{
+          display: inline-block;
+          position: absolute;
+          bottom: 0;
+          left: 0;
+          content: '';
+          height: 1px;
+          width: 100%;
+          background: #e8e8e8;
+        }
+        &:last-child:after{
+          display: none;
+        }
+        .item-title{
+          font-size: 22px;
+          line-height: 30px;
+        }
+        .show-list{
+          line-height: 50px;
+          .show-item{
+            display: inline-block;
+            margin-right: 20px;
+            font-size: 14px;
+            color: #ccc;
+            &.show-item-hot{
+              color: #f0732e;
+            }
+          }
+        }
+        .item-detail{
+          font-size: 16px;
+          color: #999;
+        }
+        .item-more{
+          text-align: right;
+          width: 100px;
+          margin: 20px 0 0 auto;
+          line-height: 21px;
+          font-size: 14px;
+        }
+      }
+    }
   }
   .blog-right{
     flex: 1;
