@@ -1,17 +1,34 @@
-import React,{useState, Fragment} from 'react';
+import React,{useState, useEffect, Fragment} from 'react';
 import Head from 'next/head'
 import Header from '../component/header/header'
 import Author from '../component/author/author'
 import Footer from './../component/footer/footer';
 import './detailed.scss'
-import { Breadcrumb } from 'antd';
+import { Breadcrumb} from 'antd';
 import { CalendarOutlined,FireOutlined,FolderOutlined } from '@ant-design/icons';
 import marked from 'marked';
 import hljs from 'highlight.js'
 import 'highlight.js/styles/monokai-sublime.css';
+import {Anchor}  from 'antd';
+
+const { Link } = Anchor;
 
 const Detailed = (props)=>{
+  const [top,setTop] = useState(45);
   const renderer = new marked.Renderer();
+  let navArr = [];
+  let index = 0;
+  renderer.heading = function(text, level, raw) {//设置文章内的导航
+    const anchorId = `toc${level}${++index}`;
+    if(level === 1){//只筛选一级标题
+      navArr = navArr.concat({
+        title: text,
+        anchorId,
+      })
+    } 
+    return `<a id="${anchorId}" href="#${anchorId}" class="anchor-fix"><h${level}>${text}</h${level}></a>\n`;
+  };
+  console.log(navArr)
   marked.setOptions({
     renderer: renderer,//必传
     gfm: true,//启动github样式的markdown
@@ -47,7 +64,7 @@ const Detailed = (props)=>{
   '> aaaaaaaaa\n' +
   '>> bbbbbbbbb\n' +
   '>>> cccccccccc\n\n'+
-  '#5 p05:Vue3.0基础知识讲解\n' +
+  '# p05:Vue3.0基础知识讲解\n' +
   '> aaaaaaaaa\n' +
   '>> bbbbbbbbb\n' +
   '>>> cccccccccc\n\n'+
@@ -56,11 +73,19 @@ const Detailed = (props)=>{
   '>> bbbbbbbbb\n' +
   '>>> cccccccccc\n\n'+
   '# p07:Vue3.0基础知识讲解\n' +
+  '## p071:Vue3.0基础知识讲解\n' +
+  '## p072:Vue3.0基础知识讲解\n' +
+  '#### p07:Vue3.0基础知识讲解\n' +
   '> aaaaaaaaa\n' +
   '>> bbbbbbbbb\n' +
   '>>> cccccccccc\n\n'+
   '``` var a=11; ```'
+  markdown = markdown + markdown + markdown + markdown + markdown //测试超过高度范围
   let html = marked(markdown)
+  const [targetOffset, setTargetOffset] = useState(undefined);
+  useEffect(() => {
+    setTargetOffset(window.innerHeight / 2);
+  }, []);
   return (
     <Fragment>
       <Head>
@@ -92,8 +117,18 @@ const Detailed = (props)=>{
             {/* 详细内容，下次编写 */}
           </div>
         </div>
-        <div className="blog-right"></div>
+        <div className="blog-right">
+          <Author/>
+          <Anchor targetOffset={targetOffset} className="catalogue-list" offsetTop={28}>
+            {navArr.length > 0 && navArr.map((item,index)=>{
+              return <Fragment key={index}>
+                <Link href={`#${item.anchorId}`} title={item.title} />
+              </Fragment>
+            })}
+          </Anchor>
+        </div>
       </div>
+      <Footer></Footer>
     </Fragment>
   )
 }
