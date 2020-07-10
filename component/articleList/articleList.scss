@@ -1,0 +1,52 @@
+.latestLog-list{
+  .latestLog-list-item{
+    padding: 32px 8px 8px;
+    position: relative;
+    &:after{
+      display: inline-block;
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      content: '';
+      height: 1px;
+      width: 100%;
+      background: #e8e8e8;
+    }
+    &:last-child:after{
+      display: none;
+    }
+    .item-title{
+      font-size: 22px;
+      line-height: 30px;
+    }
+    .article-img{
+      width: 100%;
+    }
+    .show-list{
+      line-height: 50px;
+      .show-item{
+        display: inline-block;
+        margin-right: 20px;
+        font-size: 14px;
+        color: #ccc;
+        .anticon{
+          margin-right: 5px;
+        }
+        &.show-item-hot{
+          color: #f0732e;
+        }
+      }
+    }
+    .item-detail{
+      font-size: 16px;
+      color: #999;
+    }
+    .item-more{
+      text-align: right;
+      width: 100px;
+      margin: 20px 0 0 auto;
+      line-height: 21px;
+      font-size: 14px;
+    }
+  }
+}

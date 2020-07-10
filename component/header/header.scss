@@ -27,7 +27,9 @@
       }
     }
     .hearder-icon{
+      display: inline-block;
       margin-left: 40px;
+      cursor: pointer;
       .icon-text{
         vertical-align: -0.5px;
       }
