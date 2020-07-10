@@ -10,7 +10,8 @@ import marked from 'marked';
 import hljs from 'highlight.js'
 import 'highlight.js/styles/monokai-sublime.css';
 import {Anchor}  from 'antd';
-
+import axios from 'axios'
+import  servicePath  from '../config/apiUrl'//引入servicePath
 const { Link } = Anchor;
 
 const Detailed = (props)=>{
@@ -43,45 +44,46 @@ const Detailed = (props)=>{
     }
   });
   // let html = marked(props.article_content) //使用后台接口
-  let markdown='# P01:课程介绍和环境搭建\n' + //暂时前端写死
-  '[ **M** ] arkdown + E [ **ditor** ] = **Mditor**  \n' +
-  '> Mditor 是一个简洁、易于集成、方便扩展、期望舒服的编写 markdown 的编辑器，仅此而已... \n\n' +
-   '**这是加粗的文字**\n\n' +
-  '*这是倾斜的文字*`\n\n' +
-  '***这是斜体加粗的文字***\n\n' +
-  '~~这是加删除线的文字~~ \n\n'+
-  '\`console.log(111)\` \n\n'+
-  '# p02:来个Hello World 初始Vue3.0\n' +
-  '> aaaaaaaaa\n' +
-  '>> bbbbbbbbb\n' +
-  '>>> cccccccccc\n'+
-  '***\n\n\n' +
-  '# p03:Vue3.0基础知识讲解\n' +
-  '> aaaaaaaaa\n' +
-  '>> bbbbbbbbb\n' +
-  '>>> cccccccccc\n\n'+
-  '# p04:Vue3.0基础知识讲解\n' +
-  '> aaaaaaaaa\n' +
-  '>> bbbbbbbbb\n' +
-  '>>> cccccccccc\n\n'+
-  '# p05:Vue3.0基础知识讲解\n' +
-  '> aaaaaaaaa\n' +
-  '>> bbbbbbbbb\n' +
-  '>>> cccccccccc\n\n'+
-  '# p06:Vue3.0基础知识讲解\n' +
-  '> aaaaaaaaa\n' +
-  '>> bbbbbbbbb\n' +
-  '>>> cccccccccc\n\n'+
-  '# p07:Vue3.0基础知识讲解\n' +
-  '## p071:Vue3.0基础知识讲解\n' +
-  '## p072:Vue3.0基础知识讲解\n' +
-  '#### p07:Vue3.0基础知识讲解\n' +
-  '> aaaaaaaaa\n' +
-  '>> bbbbbbbbb\n' +
-  '>>> cccccccccc\n\n'+
-  '``` var a=11; ```'
-  markdown = markdown + markdown + markdown + markdown + markdown //测试超过高度范围
-  let html = marked(markdown)
+  // let markdown='# P01:课程介绍和环境搭建\n' + //暂时前端写死
+  // '[ **M** ] arkdown + E [ **ditor** ] = **Mditor**  \n' +
+  // '> Mditor 是一个简洁、易于集成、方便扩展、期望舒服的编写 markdown 的编辑器，仅此而已... \n\n' +
+  //  '**这是加粗的文字**\n\n' +
+  // '*这是倾斜的文字*`\n\n' +
+  // '***这是斜体加粗的文字***\n\n' +
+  // '~~这是加删除线的文字~~ \n\n'+
+  // '\`console.log(111)\` \n\n'+
+  // '# p02:来个Hello World 初始Vue3.0\n' +
+  // '> aaaaaaaaa\n' +
+  // '>> bbbbbbbbb\n' +
+  // '>>> cccccccccc\n'+
+  // '***\n\n\n' +
+  // '# p03:Vue3.0基础知识讲解\n' +
+  // '> aaaaaaaaa\n' +
+  // '>> bbbbbbbbb\n' +
+  // '>>> cccccccccc\n\n'+
+  // '# p04:Vue3.0基础知识讲解\n' +
+  // '> aaaaaaaaa\n' +
+  // '>> bbbbbbbbb\n' +
+  // '>>> cccccccccc\n\n'+
+  // '# p05:Vue3.0基础知识讲解\n' +
+  // '> aaaaaaaaa\n' +
+  // '>> bbbbbbbbb\n' +
+  // '>>> cccccccccc\n\n'+
+  // '# p06:Vue3.0基础知识讲解\n' +
+  // '> aaaaaaaaa\n' +
+  // '>> bbbbbbbbb\n' +
+  // '>>> cccccccccc\n\n'+
+  // '# p07:Vue3.0基础知识讲解\n' +
+  // '## p071:Vue3.0基础知识讲解\n' +
+  // '## p072:Vue3.0基础知识讲解\n' +
+  // '#### p07:Vue3.0基础知识讲解\n' +
+  // '> aaaaaaaaa\n' +
+  // '>> bbbbbbbbb\n' +
+  // '>>> cccccccccc\n\n'+
+  // '``` var a=11; ```'
+  // markdown = markdown + markdown + markdown + markdown + markdown //测试超过高度范围
+  // let html = marked(markdown)
+  let html = marked(props.article_content)
   const [targetOffset, setTargetOffset] = useState(undefined);
   useEffect(() => {
     setTargetOffset(window.innerHeight / 2);
@@ -131,5 +133,20 @@ const Detailed = (props)=>{
       <Footer></Footer>
     </Fragment>
   )
+}
+Detailed.getInitialProps = async(context) =>{
+  console.log(context.query.id)
+  let id = context.query.id//获取路由上的id
+  const promise = new Promise((resolve)=>{
+    axios(`${servicePath.getArticleById}?id=${id}`).then(
+      (res)=>{
+        console.log(res.data.data[0])
+        resolve(res.data.data[0])
+      }
+    ).catch(err=>{
+      console.log(err)
+    })
+  })
+  return await promise
 }
 export default Detailed;

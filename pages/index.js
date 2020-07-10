@@ -10,6 +10,7 @@ import axios from 'axios'
 import Author from '../component/author/author'
 import Footer from '../component/footer/footer'
 import { CalendarOutlined,FireOutlined,FolderOutlined, RightOutlined } from '@ant-design/icons';
+import  servicePath  from '../config/apiUrl'//引入servicePath
 const Home = (list) => {
   const [ mylist , setMylist ] = useState(//括号里面时mylist的默认值
     // [
@@ -20,7 +21,7 @@ const Home = (list) => {
     // ]
     list.data
   )
-  console.log(list)
+  // console.log(list)
   const [learnList,setLearnList] = useState([
     {title: "React学习路线",descr: "基础到实践"},
     {title: "Vue2.x学习路线",descr: "基础到实践"},
@@ -42,7 +43,7 @@ const Home = (list) => {
             {mylist && mylist.map((item,index)=>
               <li className="latestLog-list-item" key={index}>
                 <p className="item-title">
-                  <Link href={{pathname:'/detailed',query:{id:item.id}}}>
+                  <Link href={{pathname:'/detailed',query:{id:item.articlId}}}>
                     <a>{item.title}</a>
                   </Link>
                 </p>
@@ -83,11 +84,12 @@ const Home = (list) => {
 }
 Home.getInitialProps = async ()=>{
   const promise = new Promise((resolve,reject)=>{
-    axios('http://127.0.0.1:7001/default/getArticleList').then(res=>{
+    console.log(servicePath.getArticleList)
+    axios(servicePath.getArticleList).then(res=>{
       console.log('远程获取的数据结果：',res.data.data)
       resolve(res.data)
     }).catch(err=>{
-      console.log(err)
+      // console.log(err)
     })
   })
   return await promise
