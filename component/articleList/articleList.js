@@ -1,8 +1,27 @@
 import './articleList.scss'
 import { CalendarOutlined, FolderOutlined, FireOutlined } from '@ant-design/icons';
 import Link from "next/link";
+import marked from 'marked'
+import hljs from "highlight.js";
+import 'highlight.js/styles/monokai-sublime.css';
 const Author = (props)=>{
   const {mylist, noImage } = props
+  const renderer = new marked.Renderer();
+  marked.setOptions({
+    renderer: renderer,
+    gfm: true,
+    pedantic: false,
+    sanitize: false,
+    tables: true,
+    breaks: false,
+    smartLists: true,
+    smartypants: false,
+    sanitize:false,
+    xhtml: false,
+    highlight: function (code) {
+      return hljs.highlightAuto(code).value;
+    }
+  });
   return (
     <ul className="latestLog-list">
       {mylist && mylist.map((item,index)=>
@@ -19,8 +38,7 @@ const Author = (props)=>{
           </div>
           {/* <div className="img-contianer" style={{background: `url('${require('../static/img/index/next_blog.jpg')}')`,width: 100, height: 100}}></div> */}
           {!noImage &&<img src={require('../../static/img/index/next_blog.jpg')} alt="文章图片" className="article-img"/>}
-          <p className="item-detail">
-            {item.introduce}
+          <p className="item-detail" dangerouslySetInnerHTML={{__html:marked(item.introduce)}}>
           </p>
           <div className="item-more"><a>查看更多</a></div>
         </li>

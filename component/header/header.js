@@ -18,22 +18,21 @@ const Header = () => {
     }
     fetchData()
   },[])
-  const handleHeaderClick= (e)=>{
-    alert(e.key)
-    if(e.key=0){
+  const handleHeaderClick= (key)=>{
+    if(key == 0){
       Router.push('/index')
     }else{
-      Router.push(`/articleList?id=${e.key}`)
+      Router.push(`/articleList?id=${key}`)
     }
   }
   return (
   <div className="header-contianer">
     <div className="header-box">
       <div className="header-left">xxx工作室<span className="studio-descr">专注前端开发</span></div>
-      <div onClick={handleHeaderClick}>
-        <div className="hearder-icon" key={0}><HomeOutlined />&nbsp;<span className="icon-text">博客首页</span></div>
+      <div>
+        <div className="hearder-icon"  onClick={()=>handleHeaderClick(0)}><HomeOutlined />&nbsp;<span className="icon-text">博客首页</span></div>
         {navArray.map((item,index)=>{
-          return <div className="hearder-icon" key={index+1}><FundProjectionScreenOutlined />&nbsp;<span className="icon-text">{item.typeName}</span></div>
+          return <div className="hearder-icon" key={index} onClick={()=>handleHeaderClick(index+1)}><FundProjectionScreenOutlined />&nbsp;<span className="icon-text">{item.typeName}</span></div>
         })}
       </div>
     </div>
