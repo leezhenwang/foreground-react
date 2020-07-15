@@ -29,7 +29,7 @@ const Detailed = (props)=>{
     } 
     return `<a id="${anchorId}" href="#${anchorId}" class="anchor-fix"><h${level}>${text}</h${level}></a>\n`;
   };
-  console.log(navArr)
+  // console.log(navArr)
   marked.setOptions({
     renderer: renderer,//必传
     gfm: true,//启动github样式的markdown
@@ -84,7 +84,8 @@ const Detailed = (props)=>{
   // markdown = markdown + markdown + markdown + markdown + markdown //测试超过高度范围
   // let html = marked(markdown)
   let html = marked(props.article_content)
-  let intorduce = marked(props.introduce)
+  let introduce = marked(props.introduce)
+  console.log('props',props)
   const [targetOffset, setTargetOffset] = useState(undefined);
   useEffect(() => {
     setTargetOffset(window.innerHeight / 2);
@@ -111,7 +112,7 @@ const Detailed = (props)=>{
             <div className="show-item"><FireOutlined />13788</div>
           </div>
           <img src={require('../static/img/index/next_blog.jpg')} alt="文章图片" className="article-img"/>
-          <p className="article-introduce" dangerouslySetInnerHTML={{__html: intorduce}}>
+          <p className="article-introduce" dangerouslySetInnerHTML={{__html: introduce}}>
           </p>
           <div className="detailed-content" dangerouslySetInnerHTML={{__html: html}}>
             {/* 详细内容，下次编写 */}

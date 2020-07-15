@@ -8,17 +8,15 @@ const Author = (props)=>{
   const {mylist, noImage } = props
   const renderer = new marked.Renderer();
   marked.setOptions({
-    renderer: renderer,
-    gfm: true,
-    pedantic: false,
-    sanitize: false,
-    tables: true,
-    breaks: false,
-    smartLists: true,
+    renderer: renderer,//必传
+    gfm: true,//启动github样式的markdown
+    pedantic: false,// 是否修正markdown的错误
+    sanitize: false,//是否原始输出，忽略html文件
+    tables: true,//是否支持github形式的表格
+    breaks: false,//是否支持github换行符
+    smartLists: true,// 是否优化列表输出
     smartypants: false,
-    sanitize:false,
-    xhtml: false,
-    highlight: function (code) {
+    highlight: function (code) {//设置显示高亮
       return hljs.highlightAuto(code).value;
     }
   });
@@ -27,7 +25,7 @@ const Author = (props)=>{
       {mylist && mylist.map((item,index)=>
         <li className="latestLog-list-item" key={index}>
           <p className="item-title">
-            <Link href={{pathname:'/detailed',query:{id:item.articlId}}}>
+            <Link href={{pathname:'/detailed',query:{id:item.articleId}}}>
               <a>{item.title}</a>
             </Link>
           </p>
@@ -38,7 +36,10 @@ const Author = (props)=>{
           </div>
           {/* <div className="img-contianer" style={{background: `url('${require('../static/img/index/next_blog.jpg')}')`,width: 100, height: 100}}></div> */}
           {!noImage &&<img src={require('../../static/img/index/next_blog.jpg')} alt="文章图片" className="article-img"/>}
-          <p className="item-detail" dangerouslySetInnerHTML={{__html:marked(item.introduce)}}>
+          <p className="item-detail" 
+            dangerouslySetInnerHTML={{__html:marked(item.introduce)}}
+          >
+            {/* {item.introduce} */}
           </p>
           <div className="item-more"><a>查看更多</a></div>
         </li>
