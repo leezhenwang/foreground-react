@@ -5,7 +5,6 @@ import marked from 'marked'
 import hljs from "highlight.js";
 import 'highlight.js/styles/monokai-sublime.css';
 const Author = (props)=>{
-  const {mylist, noImage } = props
   const renderer = new marked.Renderer();
   marked.setOptions({
     renderer: renderer,//必传
@@ -20,6 +19,7 @@ const Author = (props)=>{
       return hljs.highlightAuto(code).value;
     }
   });
+  const {mylist, noImage } = props
   return (
     <ul className="latestLog-list">
       {mylist && mylist.map((item,index)=>
@@ -36,11 +36,11 @@ const Author = (props)=>{
           </div>
           {/* <div className="img-contianer" style={{background: `url('${require('../static/img/index/next_blog.jpg')}')`,width: 100, height: 100}}></div> */}
           {!noImage &&<img src={require('../../static/img/index/next_blog.jpg')} alt="文章图片" className="article-img"/>}
-          <p className="item-detail" 
+          <div className="item-detail" 
             dangerouslySetInnerHTML={{__html:marked(item.introduce)}}
           >
             {/* {item.introduce} */}
-          </p>
+          </div>
           <div className="item-more"><a>查看更多</a></div>
         </li>
       )}

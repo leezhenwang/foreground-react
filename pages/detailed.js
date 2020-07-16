@@ -1,6 +1,7 @@
 import React,{useState, useEffect, Fragment} from 'react';
 import Head from 'next/head'
 import Header from '../component/header/header'
+import 'highlight.js/styles/monokai-sublime.css';
 import Author from '../component/author/author'
 import Footer from './../component/footer/footer';
 import './detailed.scss'
@@ -8,7 +9,6 @@ import { Breadcrumb} from 'antd';
 import { CalendarOutlined,FireOutlined,FolderOutlined } from '@ant-design/icons';
 import marked from 'marked';
 import hljs from 'highlight.js'
-import 'highlight.js/styles/monokai-sublime.css';
 import {Anchor}  from 'antd';
 import axios from 'axios'
 import  servicePath  from '../config/apiUrl'//引入servicePath
@@ -112,8 +112,8 @@ const Detailed = (props)=>{
             <div className="show-item"><FireOutlined />13788</div>
           </div>
           <img src={require('../static/img/index/next_blog.jpg')} alt="文章图片" className="article-img"/>
-          <p className="article-introduce" dangerouslySetInnerHTML={{__html: introduce}}>
-          </p>
+          <div className="article-introduce" dangerouslySetInnerHTML={{__html: introduce}}>
+          </div>
           <div className="detailed-content" dangerouslySetInnerHTML={{__html: html}}>
             {/* 详细内容，下次编写 */}
           </div>
