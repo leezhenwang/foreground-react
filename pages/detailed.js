@@ -1,10 +1,10 @@
 import React,{useState, useEffect, Fragment} from 'react';
 import Head from 'next/head'
 import Header from '../component/header/header'
+import './detailed.scss'
 import 'highlight.js/styles/monokai-sublime.css';
 import Author from '../component/author/author'
 import Footer from './../component/footer/footer';
-import './detailed.scss'
 import { Breadcrumb} from 'antd';
 import { CalendarOutlined,FireOutlined,FolderOutlined } from '@ant-design/icons';
 import marked from 'marked';
@@ -101,15 +101,15 @@ const Detailed = (props)=>{
           <div className="breadcrumb-container">
             <Breadcrumb>
               <Breadcrumb.Item>首页</Breadcrumb.Item>
-              <Breadcrumb.Item>视频教程</Breadcrumb.Item>
-              <Breadcrumb.Item>Vue.js3.x最新基础免费视频教程-无收费有辅导</Breadcrumb.Item>
+              <Breadcrumb.Item>{props.typeName}</Breadcrumb.Item>
+              <Breadcrumb.Item>{props.title}</Breadcrumb.Item>
             </Breadcrumb>
           </div>
-          <p className="detail-title">Vue.js3.x最新基础免费视频教程-无收费有辅导</p>
+          <p className="detail-title">{props.title}</p>
           <div className="detail-show">
-            <div className="show-item"><CalendarOutlined />2020-04-22</div>
-            <div className="show-item"><FolderOutlined />视频教程</div>
-            <div className="show-item"><FireOutlined />13788</div>
+            <div className="show-item"><CalendarOutlined />{props.addTime}</div>
+            <div className="show-item"><FolderOutlined />{props.typeName}</div>
+            <div className="show-item"><FireOutlined />{props.view_count}</div>
           </div>
           <img src={require('../static/img/index/next_blog.jpg')} alt="文章图片" className="article-img"/>
           <div className="article-introduce" dangerouslySetInnerHTML={{__html: introduce}}>

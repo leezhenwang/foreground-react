@@ -18,6 +18,7 @@ const Header = () => {
   useEffect(()=>{
     const fetchData = async()=>{
       const result = await axios(servicePath.getTypeInfo).then((res)=>{
+        console.log(res)
         return res.data.data
       })
       // setNavArray(result)

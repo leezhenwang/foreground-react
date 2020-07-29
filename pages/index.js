@@ -65,11 +65,11 @@ const Home = (list) => {
 Home.getInitialProps = async ()=>{
   const promise = new Promise((resolve,reject)=>{
     console.log(servicePath.getArticleList)
-    axios(servicePath.getArticleList).then(res=>{
+    axios.get(servicePath.getArticleList).then(res=>{
       console.log('远程获取的数据结果：',res.data.data)
       resolve(res.data)
     }).catch(err=>{
-      // console.log(err)
+      console.log(err)
     })
   })
   return await promise
