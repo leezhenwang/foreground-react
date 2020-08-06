@@ -1,6 +1,6 @@
-// let ipUrl = 'http://127.0.0.1:7001/default/' //本地
-let ipUrl = 'http://129.204.206.80:7001' //线上
-let isOnline = false
+let isOnline = true// 不是online就转发
+let ipUrl = isOnline? 'http://129.204.206.80:7001' : 'http://127.0.0.1:7001' //本地
+// let ipUrl = 'http://129.204.206.80:7001' //线上
 let url = isOnline ? 'http://129.204.206.80:7001' : ''
 let servicePath = {
   getArticleList: ipUrl + '/default/getArticleList' ,  //  首页文章列表接口
