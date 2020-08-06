@@ -12,13 +12,11 @@ import { Context } from '../../pages/_app'
 const Header = () => {
   const store = useContext(Context);//获取存储的值
   const { dispatch } = store
-  console.log(store)
   // const [navArray, setNavArray] = useState([]);
   let navArray = store.state.navArray
   useEffect(()=>{
     const fetchData = async()=>{
       const result = await axios(servicePath.getTypeInfo).then((res)=>{
-        console.log(res)
         return res.data.data
       })
       // setNavArray(result)

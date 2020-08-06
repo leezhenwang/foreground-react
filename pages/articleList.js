@@ -19,7 +19,6 @@ const Home = (props) => {
     // props.data
     []
   )
-  console.log(props)
   useEffect(()=>{
     // alert(props.data)
     setMylist(props.data)
@@ -56,11 +55,8 @@ const Home = (props) => {
 }
 Home.getInitialProps = async (context)=>{
   const promise = new Promise((resolve,reject)=>{
-    //console.log(servicePath.getListById)
     let id = context.query.id//获取路由上的id
-    console.log('id',id)
     axios(`${servicePath.getListById}?id=${id}`).then(res=>{
-      console.log('远程获取的数据结果：',id)
       resolve({...res.data,id})
     }).catch(err=>{
       // console.log(err)

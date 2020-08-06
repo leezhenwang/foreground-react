@@ -85,7 +85,6 @@ const Detailed = (props)=>{
   // let html = marked(markdown)
   let html = marked(props.article_content)
   let introduce = marked(props.introduce)
-  console.log('props',props)
   const [targetOffset, setTargetOffset] = useState(undefined);
   useEffect(() => {
     setTargetOffset(window.innerHeight / 2);
@@ -134,12 +133,10 @@ const Detailed = (props)=>{
   )
 }
 Detailed.getInitialProps = async(context) =>{
-  console.log(context.query.id)
   let id = context.query.id//获取路由上的id
   const promise = new Promise((resolve)=>{
     axios(`${servicePath.getArticleById}?id=${id}`).then(
       (res)=>{
-        console.log(res.data.data[0])
         resolve(res.data.data[0])
       }
     ).catch(err=>{
