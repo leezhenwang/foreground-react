@@ -6,7 +6,7 @@ const {
 
 const devProxy = {
   '/default': {
-    target: 'http://129.204.206.80:7001/default', // 端口自己配置合适的
+    target: 'http://129.204.206.80:7001', // 端口自己配置合适的
     changeOrigin: true
   }
 
