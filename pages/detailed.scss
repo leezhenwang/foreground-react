@@ -45,6 +45,24 @@
       color: #777;
     }
     .detailed-content{
+      white-space: pre;
+      padding: 0 20px;
+      font-size: 14px;
+      line-height: 20px;
+      h1{
+        font-size: 20px;
+      }
+      h2{
+        font-size: 28px;
+      }
+      h3{
+        font-size: 16px;
+      }
+      li{
+        list-style-type: disc;
+        margin-left: 25px;
+        line-height: 24px;
+      }
       pre{
         display: block;
         background-color:#f3f3f3;
@@ -68,7 +86,7 @@
         background-color:#f3f3f3;
         border:1px solid #fdb9cc;
         border-radius:3px;
-        font-size: 12px;
+        font-size: 14px;
         padding-left: 5px;
         padding-right: 5px;
         color:#4f4f4f;
