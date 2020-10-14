@@ -1,4 +1,4 @@
-import React,{useState, useEffect, Fragment} from 'react';
+import React,{useState, useEffect, Fragment, memo } from 'react';
 import Head from 'next/head'
 import Header from '../component/header/header'
 import './detailed.scss'
@@ -13,12 +13,12 @@ import {Anchor}  from 'antd';
 import axios from 'axios'
 import  servicePath  from '../config/apiUrl'//引入servicePath
 const { Link } = Anchor;
-
 const Detailed = (props)=>{
   const [top,setTop] = useState(45);
   const renderer = new marked.Renderer();
   let navArr = [];
   let index = 0;
+  console.log('开始渲染')
   renderer.heading = function(text, level, raw) {//设置文章内的导航
     const anchorId = `toc${level}${++index}`;
     if(level === 1){//只筛选一级标题
@@ -85,6 +85,7 @@ const Detailed = (props)=>{
   // let html = marked(markdown)
   let html = marked(props.article_content)
   let introduce = marked(props.introduce)
+  console.log(introduce)
   const [targetOffset, setTargetOffset] = useState(undefined);
   useEffect(() => {
     setTargetOffset(window.innerHeight / 2);
@@ -119,7 +120,7 @@ const Detailed = (props)=>{
         </div>
         <div className="blog-right">
           <Author/>
-          <Anchor targetOffset={targetOffset} className="catalogue-list" offsetTop={28}>
+          <Anchor targetOffset={targetOffset} className="catalogue-list" offsetTop={34}>
             {navArr.length > 0 && navArr.map((item,index)=>{
               return <Fragment key={index}>
                 <Link href={`#${item.anchorId}`} title={item.title} />
@@ -134,9 +135,11 @@ const Detailed = (props)=>{
 }
 Detailed.getInitialProps = async(context) =>{
   let id = context.query.id//获取路由上的id
+  console.log('发起请求了')
   const promise = new Promise((resolve)=>{
     axios(`${servicePath.getArticleById}?id=${id}`).then(
       (res)=>{
+        console.log('结束请求了')
         resolve(res.data.data[0])
       }
     ).catch(err=>{
