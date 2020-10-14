@@ -39,7 +39,7 @@ const Header = () => {
   return (
   <div className="header-contianer">
     <div className="header-box">
-      <div className="header-left">xxx工作室<span className="studio-descr">专注前端开发</span></div>
+      <div className="header-left">前端工作室<span className="studio-descr">专注前端开发</span></div>
       <div>
         <div className="hearder-icon"  onClick={()=>handleHeaderClick(0)}><HomeOutlined />&nbsp;<span className="icon-text">博客首页</span></div>
         {navArray && navArray.map((item,index)=>{
