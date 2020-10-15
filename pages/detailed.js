@@ -2,16 +2,16 @@ import React,{useState, useEffect, Fragment } from 'react';
 import Head from 'next/head'
 import Header from '../component/header/header'
 import './detailed.scss'
-import 'highlight.js/styles/monokai-sublime.css';
 import Author from '../component/author/author'
-import Footer from './../component/footer/footer';
 import { Breadcrumb} from 'antd';
 import { CalendarOutlined,FireOutlined,FolderOutlined } from '@ant-design/icons';
 import marked from 'marked';
 import hljs from 'highlight.js'
+import 'highlight.js/styles/monokai-sublime.css';
 import {Anchor}  from 'antd';
 import axios from 'axios'
 import  servicePath  from '../config/apiUrl'//引入servicePath
+import Footer from './../component/footer/footer';
 const { Link } = Anchor;
 const Detailed = (props)=>{
   const renderer = new marked.Renderer();
@@ -83,6 +83,22 @@ const Detailed = (props)=>{
   // let html = marked(markdown)
   let html = marked(props.article_content)
   let introduce = marked(props.introduce)
+  useEffect(() => {
+    console.log(props)
+    console.log(servicePath.addArticleReadTime)
+    axios({
+      method: 'post',
+      url:servicePath.addArticleReadTime,
+      data: {id: props.articleId},
+      withCredentials: true
+    }).then(
+      (res)=>{
+        resolve(res.data.data[0])
+      }
+    ).catch(err=>{
+      console.log(err)
+    })
+  }, [])
   return (
     <Fragment>
       <Head>
@@ -102,7 +118,7 @@ const Detailed = (props)=>{
           <div className="detail-show">
             <div className="show-item"><CalendarOutlined />{props.addTime}</div>
             <div className="show-item"><FolderOutlined />{props.typeName}</div>
-            <div className="show-item"><FireOutlined />{props.view_count}</div>
+            <div className="show-item"><FireOutlined />{props.view_count + 1}</div>
           </div>
           <img src={require('../static/img/index/next_blog.jpg')} alt="文章图片" className="article-img"/>
           <div className="article-introduce" dangerouslySetInnerHTML={{__html: introduce}}>
