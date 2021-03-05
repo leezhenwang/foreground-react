@@ -8,9 +8,10 @@ import React,{useState} from 'react'
 import Link from "next/link";
 import axios from 'axios'
 import Author from '../component/author/author'
+import { Spin, Space} from 'antd';
 import ArticleList from '../component/articleList/articleList'
 import Footer from '../component/footer/footer'
-import { CalendarOutlined,FireOutlined,FolderOutlined, RightOutlined } from '@ant-design/icons';
+import { RightOutlined } from '@ant-design/icons';
 import  servicePath  from '../config/apiUrl'//引入servicePath
 const Home = (list) => {
   const [ mylist , setMylist ] = useState(//括号里面时mylist的默认值
@@ -29,10 +30,14 @@ const Home = (list) => {
     {title: "Flutter学习路线",descr: "基础到实践"},
   ])
   const [top,setTop] = useState(45);
+  const [isShowSpin,setIsShowSpin] = useState(false)
+  const handleSpin = (isShow)=>{
+    setIsShowSpin(isShow)
+  }
   return (
     <Fragment>
       <Head>
-        <title>Home</title>
+        <title>博客首页</title>
       </Head>
       <Header />
       {/* <div className="home">首页</div>
@@ -40,7 +45,7 @@ const Home = (list) => {
       <div className="blog-container">
         <div className="blog-left">
           <p className="blog-title">最新日志</p>
-          <ArticleList mylist={mylist}/>
+          <ArticleList mylist={mylist} handleSpin={handleSpin}/>
         </div>
         <div className="blog-right">
           <Author/>
@@ -59,6 +64,9 @@ const Home = (list) => {
         </div>
       </div>
       <Footer/>
+      {isShowSpin && <Space size="middle">
+        <Spin size="large" tip="加载中..."/>
+      </Space>}
     </Fragment>
   )
 }

@@ -19,14 +19,14 @@ const Author = (props)=>{
       return hljs.highlightAuto(code).value;
     }
   });
-  const {mylist, noImage } = props
+  const {mylist, noImage, handleSpin } = props
   return (
     <ul className="latestLog-list">
       {mylist && mylist.map((item,index)=>
         <li className="latestLog-list-item" key={index}>
           <p className="item-title">
             <Link href={{pathname:'/detailed',query:{id:item.articleId}}}>
-              <a>{item.title}</a>
+              <a onClick={()=>handleSpin(true)}>{item.title}</a>
             </Link>
           </p>
           <div className="show-list">
@@ -35,13 +35,17 @@ const Author = (props)=>{
             <div className="show-item show-item-hot"><FireOutlined/>{item.view_count}&nbsp;人</div>
           </div>
           {/* <div className="img-contianer" style={{background: `url('${require('../static/img/index/next_blog.jpg')}')`,width: 100, height: 100}}></div> */}
-          {!noImage &&<img src={require('../../static/img/index/next_blog.jpg')} alt="文章图片" className="article-img"/>}
+          {/* {!noImage &&<img src={require('../../static/img/index/next_blog.jpg')} alt="文章图片" className="article-img"/>} */}
           <div className="item-detail" 
             dangerouslySetInnerHTML={{__html:marked(item.introduce)}}
           >
             {/* {item.introduce} */}
           </div>
-          <div className="item-more"><a>查看更多</a></div>
+          <div className="item-more">
+            <Link href={{pathname:'/detailed',query:{id:item.articleId}}}>
+              <a onClick={()=>handleSpin(true)}>查看更多</a>
+            </Link>
+          </div>
         </li>
       )}
     </ul>

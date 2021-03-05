@@ -94,3 +94,9 @@ code {
   margin: 0px 3px;
 
 }
+.ant-space{
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+}
