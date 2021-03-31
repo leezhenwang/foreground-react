@@ -1,7 +1,7 @@
 import Head from 'next/head'
 import './index.css'
 import './index.scss'
-import {Button, Affix } from 'antd'
+import {message, Affix } from 'antd'
 import Header from '../component/header/header'
 import { Fragment } from 'react'
 import React,{useState} from 'react'
@@ -34,6 +34,9 @@ const Home = (list) => {
   const handleSpin = (isShow)=>{
     setIsShowSpin(isShow)
   }
+  const showMessage =()=>{
+    message.info('敬请期待');
+  }
   return (
     <Fragment>
       <Head>
@@ -53,7 +56,7 @@ const Home = (list) => {
             <div className="learn-container">
               <p className="learn-title">学习路线</p>
               {learnList.map((item,index)=>
-                <div key={index} className="learn-item">
+                <div key={index} className="learn-item" onClick={showMessage}>
                   <span className="learn-item-title">{item.title}</span>
                   <span className="learn-item-descr">{item.descr}</span>
                   <span className="learn-item-arrow"><RightOutlined /></span>

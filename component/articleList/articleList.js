@@ -4,6 +4,7 @@ import Link from "next/link";
 import marked from 'marked'
 import hljs from "highlight.js";
 import 'highlight.js/styles/monokai-sublime.css';
+import { Fragment } from 'react';
 const Author = (props)=>{
   const renderer = new marked.Renderer();
   marked.setOptions({
@@ -21,34 +22,41 @@ const Author = (props)=>{
   });
   const {mylist, noImage, handleSpin } = props
   return (
-    <ul className="latestLog-list">
-      {mylist && mylist.map((item,index)=>
-        <li className="latestLog-list-item" key={index}>
-          <p className="item-title">
-            <Link href={{pathname:'/detailed',query:{id:item.articleId}}}>
-              <a onClick={()=>handleSpin(true)}>{item.title}</a>
-            </Link>
-          </p>
-          <div className="show-list">
-            <div className="show-item"><CalendarOutlined/>{item.addTime}</div>
-            <div className="show-item"><FolderOutlined/>{item.typeName}</div>
-            <div className="show-item show-item-hot"><FireOutlined/>{item.view_count}&nbsp;人</div>
-          </div>
-          {/* <div className="img-contianer" style={{background: `url('${require('../static/img/index/next_blog.jpg')}')`,width: 100, height: 100}}></div> */}
-          {/* {!noImage &&<img src={require('../../static/img/index/next_blog.jpg')} alt="文章图片" className="article-img"/>} */}
-          <div className="item-detail" 
-            dangerouslySetInnerHTML={{__html:marked(item.introduce)}}
-          >
-            {/* {item.introduce} */}
-          </div>
-          <div className="item-more">
-            <Link href={{pathname:'/detailed',query:{id:item.articleId}}}>
-              <a onClick={()=>handleSpin(true)}>查看更多</a>
-            </Link>
-          </div>
-        </li>
-      )}
-    </ul>
+    <Fragment>
+      {mylist && mylist.length > 0 ?
+        <ul className="latestLog-list">
+          {mylist.map((item,index)=><li className="latestLog-list-item" key={index}>
+            <p className="item-title">
+              <Link href={{pathname:'/detailed',query:{id:item.articleId}}}>
+                <a onClick={()=>handleSpin(true)}>{item.title}</a>
+              </Link>
+            </p>
+            <div className="show-list">
+              <div className="show-item"><CalendarOutlined/>{item.addTime}</div>
+              <div className="show-item"><FolderOutlined/>{item.typeName}</div>
+              <div className="show-item show-item-hot"><FireOutlined/>{item.view_count}&nbsp;人</div>
+            </div>
+            {/* <div className="img-contianer" style={{background: `url('${require('../static/img/index/next_blog.jpg')}')`,width: 100, height: 100}}></div> */}
+            {/* {!noImage &&<img src={require('../../static/img/index/next_blog.jpg')} alt="文章图片" className="article-img"/>} */}
+            <div className="item-detail" 
+              dangerouslySetInnerHTML={{__html:marked(item.introduce)}}
+            >
+              {/* {item.introduce} */}
+            </div>
+            <div className="item-more">
+              <Link href={{pathname:'/detailed',query:{id:item.articleId}}}>
+                <a onClick={()=>handleSpin(true)}>查看更多</a>
+              </Link>
+            </div>
+          </li>
+        )}
+      </ul>
+      : 
+      <Fragment>
+        <img className="nodata" src={require('../../static/img/articleList/nodata.png')} alt=""/>
+        <p className="tip-word">博主正在编写...</p>
+      </Fragment>}
+    </Fragment>
   )
 }
 export default Author;

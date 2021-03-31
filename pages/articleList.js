@@ -6,7 +6,7 @@ import axios from 'axios'
 import Author from '../component/author/author'
 import ArticleList from '../component/articleList/articleList'
 import Footer from '../component/footer/footer'
-import { Breadcrumb, Affix } from 'antd'
+import { Breadcrumb, Affix, Space, Spin } from 'antd'
 import  servicePath  from '../config/apiUrl'//引入servicePath
 const Home = (props) => {
   const [ mylist , setMylist ] = useState(//括号里面时mylist的默认值
@@ -24,6 +24,10 @@ const Home = (props) => {
     setMylist(props.data)
   },[props.id])//仅仅当路由上的参数变化再更新页面
   const [top,setTop] = useState(60);
+  const [isShowSpin,setIsShowSpin] = useState(false)
+  const handleSpin = (isShow)=>{
+    setIsShowSpin(isShow)
+  }
   return (
     <Fragment>
       <Head>
@@ -41,7 +45,7 @@ const Home = (props) => {
             </Breadcrumb>
           </div>
           <p className="blog-title">最新日志</p>
-          <ArticleList mylist={mylist} noImage={true}/>
+          <ArticleList mylist={mylist} noImage={true} handleSpin={handleSpin}/>
         </div>
         <div className="blog-right">
           <Affix offsetTop={top}>
@@ -50,6 +54,9 @@ const Home = (props) => {
         </div>
       </div>
       <Footer/>
+      {isShowSpin && <Space size="middle">
+        <Spin size="large" tip="加载中..."/>
+      </Space>}
     </Fragment>
   )
 }
