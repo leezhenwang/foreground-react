@@ -84,8 +84,8 @@ const Detailed = (props)=>{
   let html = marked(props.article_content)
   let introduce = marked(props.introduce)
   useEffect(() => {
-    console.log(props)
-    console.log(servicePath.addArticleReadTime)
+    // console.log(props)
+    // console.log(servicePath.addArticleReadTime)
     axios({
       method: 'post',
       url:servicePath.addArticleReadTime,
@@ -96,7 +96,7 @@ const Detailed = (props)=>{
         resolve(res.data.data[0])
       }
     ).catch(err=>{
-      console.log(err)
+      // console.log(err)
     })
   }, [])
   return (
@@ -150,7 +150,7 @@ Detailed.getInitialProps = async(context) =>{
         resolve(res.data.data[0])
       }
     ).catch(err=>{
-      console.log(err)
+      // console.log(err)
     })
   })
   return await promise
