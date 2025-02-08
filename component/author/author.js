@@ -37,7 +37,7 @@ const Author = ()=>{
     <p className="blog-nickname">小恐龙</p>
     <p className="blog-focus-text">专注于WEB和移动前端开发</p>
     <div className="blog-tags">
-      <span className="tag-icon blue">2-3年经验</span>
+      <span className="tag-icon blue">5年以上经验</span>
       <span className="tag-icon green">业余讲师</span>
       <span className="tag-icon geekblue">被访问{visit_num}次</span>
       <span className="tag-icon blue">基金爱好者</span>
